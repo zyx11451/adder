@@ -14,15 +14,41 @@
  */
 
 module adder(
-	// TODO: Write the ports of this module here
-	//
-	// Hint: 
-	//   The module needs 4 ports, 
-	//     the first 2 ports are 16-bit unsigned numbers as the inputs of the adder
-	//     the third port is a 16-bit unsigned number as the output
-	//	   the forth port is a one bit port as the carry flag
-	// 
+	input  [15:0] a,
+	input  [15:0] b,
+	output [15:0] ans,
+	output carry
 );
-	// TODO: Implement this module here
-	
+wire[16:0] c;
+assign c[0]=0;
+
+genvar  i;
+generate
+	for(i=0;i<16;i=i+1) begin
+	FullAdder fa(
+		.a   (a[i]),
+		.b   (b[i]),
+		.carry_in (c[i]),
+		.carry_out (c[i+1]),
+		.ans (ans[i])
+	);
+	end
+endgenerate
+
+
+
+assign carry=c[16];
+
+endmodule
+
+module FullAdder(
+	input a,
+	input b,
+	input carry_in,
+	output carry_out,
+	output ans
+);
+assign ans = a^b^carry_in;
+assign carry_out=(a&b)|(carry_in&(a|b));
+
 endmodule
