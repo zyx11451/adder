@@ -14,49 +14,26 @@
  */
 
 module adder(
-	// TODO: Write the ports of this module here
-	//
-	// Hint: 
-	//   The module needs 4 ports, 
-	//     the first 2 ports are 16-bit unsigned numbers as the inputs of the adder
-	//     the third port is a 16-bit unsigned number as the output
-	//	   the forth port is a one bit port as the carry flag
-	// 
-	input reg [15:0] a,
-	input reg [15:0] b,
-	output wire [15:0] ans,
-	output wire carry,
+	input  [15:0] a,
+	input  [15:0] b,
+	output [15:0] ans,
+	output carry
 );
-	// TODO: Implement this module here
-	
+	wire zero;
+	assign zero=0;
+	wire G;
+	wire P;
+	Add16 add(
+		.a (a),
+		.b (b),
+		.carry_in (zero),
+		.ans (ans),
+		.p_out (P),
+		.g_out (G)
+	);
+	assign carry=G;
 endmodule
 
-module Add(
-    input       [31:0]          a,
-    input       [31:0]          b,
-    output reg  [31:0]          sum
-);
-wire zero;
-assign zero=0;
-wire[31:0] ans;
-Add32 aa(
-    .a   (a),
-    .b   (b),
-    .carry_in (zero),
-    .ans (ans)
-);
-always begin
-  #1
-sum=ans;
-
-#1
-$finish;  
-end
-
-
-
-
-endmodule
 
 module Adder(
     input     a,
