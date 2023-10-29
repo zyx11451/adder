@@ -14,7 +14,7 @@ module test_multiplier;
 			b[31:0] = $random;
 			res		= $signed(a)* $signed(b);
 			
-			#4;
+			#15;
 			$display("TESTCASE %d: %d * %d = %d ", i, $signed(a), $signed(b), $signed(answer));
 
 			if (answer !== res[63:0] ) begin
